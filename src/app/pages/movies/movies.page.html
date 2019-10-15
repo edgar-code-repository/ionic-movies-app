@@ -1,12 +1,12 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>Ionic Movies App</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <ion-item button *ngFor="let movie of moviesList">
+    <ion-item button *ngFor="let movie of moviesList" [routerLink]="['/movies/', movie.id]">
       <ion-avatar slot="start">
         <img [src]="movie.poster">
       </ion-avatar>

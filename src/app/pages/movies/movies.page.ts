@@ -37,7 +37,7 @@ export class MoviesPage implements OnInit {
     {
       id: 4,
       title: 'The Terminator',
-      poster: 'https://cdn.shopify.com/s/files/1/0627/1477/products/Blade_Runner080618PF_8f704f19-4808-47e5-93dc-224062b4d96f_large.jpg?v=1543504514',
+      poster: 'https://images-na.ssl-images-amazon.com/images/I/A1wiVBc2VLL._SY550_.jpg',
       year: 1984,
       plot: '',
       idGenre: 0
