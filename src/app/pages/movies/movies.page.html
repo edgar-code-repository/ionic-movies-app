@@ -6,6 +6,12 @@
 
 <ion-content>
   <ion-list>
+    <ion-item>
+      <ion-label>Select Genre</ion-label>
+      <ion-select [(ngModel)]="selectedGenre" (ionChange)="genreChange($event)">
+        <ion-select-option *ngFor="let genre of genresList" [value]="genre.id" >{{genre.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>    
     <ion-item button *ngFor="let movie of moviesList" [routerLink]="['/movies/', movie.id]">
       <ion-avatar slot="start">
         <img [src]="movie.poster">

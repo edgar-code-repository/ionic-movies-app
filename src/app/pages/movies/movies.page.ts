@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Movie } from './../../model/movie';
+import { MovieService } from './../../services/movie.service';
 
 @Component({
   selector: 'app-movies',
@@ -9,54 +10,59 @@ import { Movie } from './../../model/movie';
 })
 export class MoviesPage implements OnInit {
 
-  moviesList: Movie[] = [
-    {
-      id: 1,
-      title: 'Star Wars',
-      poster: 'https://images-na.ssl-images-amazon.com/images/I/81w4kfIpSjL._SY550_.jpg',
-      year: 1977,
-      plot: '',
-      idGenre: 0
-    },
-    {
-      id: 2,
-      title: 'Saturday Night Fever',
-      poster: 'https://images-na.ssl-images-amazon.com/images/I/51HH4WHN8VL.jpg',
-      year: 1977,
-      plot: '',
-      idGenre: 0
-    },
-    {
-      id: 3,
-      title: 'Blade Runner',
-      poster: 'https://cdn.shopify.com/s/files/1/0627/1477/products/Blade_Runner080618PF_8f704f19-4808-47e5-93dc-224062b4d96f_large.jpg?v=1543504514',
-      year: 1982,
-      plot: '',
-      idGenre: 0
-    },
-    {
-      id: 4,
-      title: 'The Terminator',
-      poster: 'https://images-na.ssl-images-amazon.com/images/I/A1wiVBc2VLL._SY550_.jpg',
-      year: 1984,
-      plot: '',
-      idGenre: 0
-    },
-    {
-      id: 5,
-      title: 'The Matrix',
-      poster: 'https://bloximages.chicago2.vip.townnews.com/stardem.com/content/tncms/assets/v3/editorial/9/1b/91b8775d-f35a-5f99-a3d1-9cb36d97279e/5c48d82b6bfb7.image.jpg?resize=500%2C773',
-      year: 1999,
-      plot: '',
-      idGenre: 0
-    }
-  ];
+  moviesList: Movie[] = [];
   genresList = [];
   selectedGenre = 0;
 
-  constructor() { }
+  constructor(private movieService: MovieService) { }
 
   ngOnInit() {
+    this.loadAllGenres();
+  }
+
+  loadAllGenres() {
+    const genresObservable = this.movieService.getGenres();
+    genresObservable.subscribe(
+      (data: any) => {
+        console.log('[MoviesPage][successful call to MovieService][genres: ' + data + ']');
+        this.genresList = data;
+
+        if (this.genresList.length !== 0) {
+          this.selectedGenre = this.genresList[0].id;
+          this.loadMoviesByGenre();
+        }
+      },
+      (error) => {
+        console.log('[MoviesPage][Error code: ' + error.status + ']');
+        //this.message = error.message;
+      }
+    );
+  }
+
+  loadMoviesByGenre() {
+    const moviesObservable = this.movieService.getMoviesByGenre(this.selectedGenre);
+    moviesObservable.subscribe(
+      (data: any) => {
+        console.log('[MoviesPage][successful call to MovieService][movies: ' + data + ']');
+        this.moviesList = data;
+      },
+      (error) => {
+        console.log('[MoviesPage][Error code: ' + error.status + ']');
+        //this.message = error.message;
+      }
+    );
+  }
+
+  genreChange() {
+    console.log('[MoviesPage][genreChange][selectedGenre: ' + this.selectedGenre + ']');
+
+    if (this.selectedGenre !== 0) {
+      this.loadMoviesByGenre();
+    }
+    else {
+      this.moviesList = [];
+    }
+
   }
 
 }
