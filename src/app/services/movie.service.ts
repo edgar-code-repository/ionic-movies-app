@@ -27,12 +27,13 @@ export class MovieService {
     return observable;
   }
 
-  getMoviesByGenre(genreId: number) {
-    const apiUrl = environment.NODE_REST_API_URL + '/' + genreId + '/movies';
+  getMoviesByGenre(genreId: number, page: number) {
+    const apiUrl = environment.NODE_REST_API_URL + '/' + genreId + '/movies?page=' + page;
 
     console.log('[MovieService][getMoviesByGenre][START]');
     console.log('[MovieService][getMoviesByGenre][genreId: ' + genreId + ']');
     console.log('[MovieService][getMoviesByGenre][apiUrl: ' + apiUrl + ']');
+    console.log('[MovieService][getMoviesByGenre][page: ' + page + ']');
 
     const observable = this.httpClient.get(apiUrl, this.httpOptions);
 

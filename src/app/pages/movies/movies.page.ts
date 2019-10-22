@@ -13,6 +13,8 @@ export class MoviesPage implements OnInit {
   moviesList: Movie[] = [];
   genresList = [];
   selectedGenre = 0;
+  page = 1;
+  totalPages = 3;
 
   constructor(private movieService: MovieService) { }
 
@@ -39,12 +41,16 @@ export class MoviesPage implements OnInit {
     );
   }
 
-  loadMoviesByGenre() {
-    const moviesObservable = this.movieService.getMoviesByGenre(this.selectedGenre);
+  loadMoviesByGenre(event?) {
+    const moviesObservable = this.movieService.getMoviesByGenre(this.selectedGenre, this.page);
     moviesObservable.subscribe(
       (data: any) => {
         console.log('[MoviesPage][successful call to MovieService][movies: ' + data + ']');
-        this.moviesList = data;
+        this.moviesList = this.moviesList.concat(data);
+
+        if (event) {
+          event.target.complete();
+        }
       },
       (error) => {
         console.log('[MoviesPage][Error code: ' + error.status + ']');
@@ -53,16 +59,26 @@ export class MoviesPage implements OnInit {
     );
   }
 
+  loadMoreMovies(event) {
+    console.log('[MoviesPage][loadMoreMovies]');
+
+    this.page++;
+    this.loadMoviesByGenre(event);
+
+    if (this.page === this.totalPages) {
+      event.target.disabled = true;
+    }
+  }
+
   genreChange() {
     console.log('[MoviesPage][genreChange][selectedGenre: ' + this.selectedGenre + ']');
 
     if (this.selectedGenre !== 0) {
+      this.page = 1;
       this.loadMoviesByGenre();
-    }
-    else {
+    } else {
       this.moviesList = [];
     }
-
   }
 
 }
