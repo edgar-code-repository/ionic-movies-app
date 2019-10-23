@@ -19,16 +19,16 @@ export class MovieService {
 
   getGenres() {
     console.log('[MovieService][getGenres][START]');
-    console.log('[MovieService][getGenres][genresUrlRestAPI: ' + environment.NODE_REST_API_URL + ']');
+    console.log('[MovieService][getGenres][genresUrlRestAPI: ' + environment.NODE_REST_API_URL_GENRES + ']');
 
-    const observable = this.httpClient.get(environment.NODE_REST_API_URL, this.httpOptions);
+    const observable = this.httpClient.get(environment.NODE_REST_API_URL_GENRES, this.httpOptions);
 
     console.log('[MovieService][getGenres][END]');
     return observable;
   }
 
   getMoviesByGenre(genreId: number, page: number) {
-    const apiUrl = environment.NODE_REST_API_URL + '/' + genreId + '/movies?page=' + page;
+    const apiUrl = environment.NODE_REST_API_URL_GENRES + '/' + genreId + '/movies?page=' + page;
 
     console.log('[MovieService][getMoviesByGenre][START]');
     console.log('[MovieService][getMoviesByGenre][genreId: ' + genreId + ']');
@@ -41,6 +41,17 @@ export class MovieService {
     return observable;
   }
 
+  getMovieById(movieId: any) {
+    const apiUrl = environment.NODE_REST_API_URL_MOVIES + '/' + movieId;
 
+    console.log('[MovieService][getMovieById][START]');
+    console.log('[MovieService][getMovieById][movieId: ' + movieId + ']');
+    console.log('[MovieService][getMovieById][apiUrl: ' + apiUrl + ']');
+
+    const observable = this.httpClient.get(apiUrl, this.httpOptions);
+
+    console.log('[MovieService][getMovieById][END]');
+    return observable;
+  }
 
 }

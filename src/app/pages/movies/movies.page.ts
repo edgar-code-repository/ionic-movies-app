@@ -14,7 +14,7 @@ export class MoviesPage implements OnInit {
   genresList = [];
   selectedGenre = 0;
   page = 1;
-  totalPages = 3;
+  totalPages = 0;
 
   constructor(private movieService: MovieService) { }
 
@@ -42,21 +42,34 @@ export class MoviesPage implements OnInit {
   }
 
   loadMoviesByGenre(event?) {
-    const moviesObservable = this.movieService.getMoviesByGenre(this.selectedGenre, this.page);
-    moviesObservable.subscribe(
-      (data: any) => {
-        console.log('[MoviesPage][successful call to MovieService][movies: ' + data + ']');
-        this.moviesList = this.moviesList.concat(data);
-
-        if (event) {
+    if (event) {
+      const moviesObservable = this.movieService.getMoviesByGenre(this.selectedGenre, this.page);
+      moviesObservable.subscribe(
+        (data: any) => {
+          console.log('[MoviesPage][successful call to MovieService][movies: ' + data.items + ']');
+          this.moviesList = this.moviesList.concat(data.items);
+          this.totalPages = data.totalPages;
           event.target.complete();
+        },
+        (error) => {
+          console.log('[MoviesPage][Error code: ' + error.status + ']');
+          //this.message = error.message;
         }
-      },
-      (error) => {
-        console.log('[MoviesPage][Error code: ' + error.status + ']');
-        //this.message = error.message;
-      }
-    );
+      );
+    } else {
+      const moviesObservable = this.movieService.getMoviesByGenre(this.selectedGenre, this.page);
+      moviesObservable.subscribe(
+        (data: any) => {
+          console.log('[MoviesPage][successful call to MovieService][movies: ' + data.items + ']');
+          this.moviesList = data.items;
+          this.totalPages = data.totalPages;
+        },
+        (error) => {
+          console.log('[MoviesPage][Error code: ' + error.status + ']');
+          //this.message = error.message;
+        }
+      );
+    }
   }
 
   loadMoreMovies(event) {

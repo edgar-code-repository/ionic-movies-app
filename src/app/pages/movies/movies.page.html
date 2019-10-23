@@ -16,12 +16,10 @@
       <ion-avatar slot="start">
         <img [src]="movie.poster">
       </ion-avatar>
-
-      <ion-label text-wrap>
+      <ion-label class="ion-text-wrap">
         <h3>{{ movie.title }}</h3>
         {{ movie.year }}
       </ion-label>
-
       <ion-icon slot="end" name="videocam"></ion-icon>
     </ion-item>
   </ion-list>

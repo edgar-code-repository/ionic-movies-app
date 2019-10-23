@@ -9,7 +9,7 @@ Aplicación desarrollada con Ionic 4 que despliega información de películas.
 
 Pantalla que despliega listado de películas:
 
-![Screenshot MovieList](screenshots/ionic-lab-movies-list.png)
+![Screenshot MovieList](screenshots/ionic-lab-movies.png)
 
 
 Pantalla que despliega detalle de una película:

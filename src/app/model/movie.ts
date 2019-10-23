@@ -4,5 +4,5 @@ export class Movie {
     poster: string;
     year: number;
     plot: string;
-    idGenre: number;
+    genre_id: number;
 }

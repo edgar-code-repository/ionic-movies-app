@@ -3,24 +3,20 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
-    <ion-title>The Terminator</ion-title>
+    <ion-title *ngIf="movieDetails">{{ movieDetails.title }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-card>
+<ion-content class="ion-padding">
+  <ion-card *ngIf="movieDetails">
     <ion-card-header>
-      <ion-card-title>The Terminator</ion-card-title>
-      <ion-card-subtitle>1984</ion-card-subtitle>
+      <ion-card-title>{{ movieDetails.title }}</ion-card-title>
+      <ion-card-subtitle>{{ movieDetails.year }}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>  
-        <img src="https://images-na.ssl-images-amazon.com/images/I/A1wiVBc2VLL._SY550_.jpg" class="img-poster-size">
+      <img [src]="movieDetails.poster" class="img-poster-size">
         <br/>
-        <p>Disguised as a human, a cyborg assassin known as a Terminator (Arnold Schwarzenegger) travels from 2029 to 1984 
-          to kill Sarah Connor (Linda Hamilton). Sent to protect Sarah is Kyle Reese (Michael Biehn), who divulges the coming 
-          of Skynet, an artificial intelligence system that will spark a nuclear holocaust. 
-          Sarah is targeted because Skynet knows that her unborn son will lead the fight against them. 
-          With the virtually unstoppable Terminator in hot pursuit, she and Kyle attempt to escape.</p>
+        <p>{{ movieDetails.plot }}</p>
     </ion-card-content>
   </ion-card>
 </ion-content>
