@@ -1,9 +1,9 @@
 IONIC MOVIES APP
 --------------------------------------------------------------------------------------------------------------------
 
-Aplicación desarrollada con Ionic 4 que despliega información de películas.
+Aplicación desarrollada con Ionic 4 que despliega información de películas y géneros.
 
-La aplicación utiliza el HttpClientModule para conectarse a una API Rest desarrollada con Node/Express y que permite almacenar la información en una base de datos PostgreSQL:
+La aplicación utiliza el HttpClientModule para conectarse a una API Rest desarrollada con Node/Express y que permite extraer la información desde una base de datos PostgreSQL:
 
 **MOVIES REST API WITH NODE AND EXPRESS**
 
